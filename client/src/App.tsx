@@ -14,9 +14,8 @@ const App = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const wsRef = useRef<WebSocket | null>(null);
 
-  useEffect(() => {
-    if (!joined) return;
-
+  // Extract WebSocket connection setup into a function for reuse
+  const connectWebSocket = () => {
     const ws = new WebSocket(import.meta.env.VITE_WS_URL);
     wsRef.current = ws;
 
@@ -39,8 +38,33 @@ const App = () => {
       console.error(" WebSocket error", err);
     };
 
-    return () => ws.close();
-  }, [joined]);
+    ws.onclose = () => {
+      console.log("WebSocket closed");
+    };
+  };
+
+  useEffect(() => {
+    if (!joined) return;
+
+    connectWebSocket();
+
+    // Reconnect WebSocket when tab becomes visible if closed
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        if (!wsRef.current || wsRef.current.readyState === WebSocket.CLOSED) {
+          console.log("Reconnecting WebSocket after coming back to foreground...");
+          connectWebSocket();
+        }
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      wsRef.current?.close();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [joined, name, roomId]);
 
   const handleSend = () => {
     const text = messageText.trim();
