@@ -13,12 +13,21 @@
   "description": "",
   "dependencies": {
     "dotenv": "^17.0.1",
-    "typescript": "^5.8.3",
     "ws": "^8.18.3"
   },
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
     "@types/node": "^24.0.10",
-    "@types/ws": "^8.18.1"
-  }
+    "@types/ws": "^8.18.1",
+    "typescript": "^5.8.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YOUR_USERNAME/YOUR_REPO.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/YOUR_USERNAME/YOUR_REPO/issues"
+  },
+  "homepage": "https://github.com/YOUR_USERNAME/YOUR_REPO#readme"
 }
