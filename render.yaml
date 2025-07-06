@@ -1,11 +1,6 @@
 services:
   - type: web
     name: chat-server
-    env: node
+    env: docker
     plan: free
     rootDir: server
-    buildCommand: |
-      npm install
-      npm install @types/node @types/ws @types/dotenv
-      npm run build
-    startCommand: node dist/index.js
