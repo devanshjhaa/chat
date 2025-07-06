@@ -1,7 +1,8 @@
-import { WebSocketServer, WebSocket } from "ws";
+import { WebSocketServer, WebSocket, RawData } from "ws";
 import dotenv from "dotenv";
 
 dotenv.config();
+
 const PORT = process.env.PORT || 8080;
 
 interface User {
@@ -14,22 +15,21 @@ let allSockets: User[] = [];
 
 const wss = new WebSocketServer({ port: Number(PORT) });
 
-
-wss.on("connection", (socket) => {
+wss.on("connection", (socket: WebSocket) => {
   console.log("Client connected");
 
-  socket.on("message", (data) => {
+  socket.on("message", (data: RawData) => {
     try {
       const parsed = JSON.parse(data.toString());
 
-      // Handle join 
+      // Handle join
       if (parsed.type === "join") {
         const { roomId, name } = parsed.payload;
         allSockets.push({ socket, room: roomId, name });
         console.log(`User ${name} joined room ${roomId}`);
       }
 
-      // Handle chat 
+      // Handle chat
       if (parsed.type === "chat") {
         const sender = allSockets.find((u) => u.socket === socket);
         if (!sender) return;
@@ -55,7 +55,7 @@ wss.on("connection", (socket) => {
     allSockets = allSockets.filter((u) => u.socket !== socket);
   });
 
-  socket.on("error", (err) => {
+  socket.on("error", (err: Error) => {
     console.error("WebSocket error:", err);
   });
 });
