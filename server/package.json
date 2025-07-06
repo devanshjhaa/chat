@@ -20,5 +20,10 @@
     "@types/dotenv": "^6.1.1",
     "@types/node": "^24.0.10",
     "@types/ws": "^8.18.1"
+  },
+  "compilerOptions": {
+    "types": [
+      "node"
+    ]
   }
 }
