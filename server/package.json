@@ -14,21 +14,20 @@
   "description": "",
   "dependencies": {
     "dotenv": "^17.0.1",
-    "ws": "^8.18.3"
+    "ws": "^8.18.3",
+    "@types/node": "^24.0.10"
   },
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
-    "@types/node": "^24.0.10",
     "@types/ws": "^8.18.1",
     "typescript": "^5.8.3"
   },
-"repository": {
-  "type": "git",
-  "url": "git+https://github.com/devanshjhaa/chat.git"
-},
-"bugs": {
-  "url": "https://github.com/devanshjhaa/chat/issues"
-},
-"homepage": "https://github.com/devanshjhaa/chat#readme"
-
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devanshjhaa/chat.git"
+  },
+  "bugs": {
+    "url": "https://github.com/devanshjhaa/chat/issues"
+  },
+  "homepage": "https://github.com/devanshjhaa/chat#readme"
 }
