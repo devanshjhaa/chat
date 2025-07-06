@@ -2,15 +2,15 @@ FROM node:20
 
 WORKDIR /app
 
+# Make sure NODE_ENV is NOT set to production (otherwise devDependencies are skipped)
+ENV NODE_ENV=development
+
 COPY package*.json ./
 
-# Ensure devDependencies are installed
+# This will install devDependencies too
 RUN npm install
 
 COPY . .
-
-# Ensure type packages are present before build
-RUN npm install @types/node @types/ws @types/dotenv
 
 RUN npm run build
 
