@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { WebSocketServer, WebSocket, RawData } from "ws";
 import dotenv from "dotenv";
 
