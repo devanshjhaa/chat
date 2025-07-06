@@ -1,5 +1,5 @@
 {
-  "name": "chat",
+  "name": "chat-backend",
   "version": "1.0.0",
   "type": "module",
   "main": "dist/index.js",
@@ -12,9 +12,9 @@
     "ws": "^8.18.3"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
+    "@types/node": "^20.11.30",
     "@types/ws": "^8.5.10",
-    "typescript": "^5.8.3"
+    "typescript": "^5.2.2"
   },
   "engines": {
     "node": "18.x"
