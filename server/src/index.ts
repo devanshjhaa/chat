@@ -1,10 +1,10 @@
-/// <reference types="node" />
+import http from "http";
 import { WebSocketServer, WebSocket, RawData } from "ws";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const PORT = process.env.PORT || 8080;
+const PORT = Number(process.env.PORT) || 8080;
 
 interface User {
   socket: WebSocket;
@@ -14,7 +14,13 @@ interface User {
 
 let allSockets: User[] = [];
 
-const wss = new WebSocketServer({ port: Number(PORT) });
+const server = http.createServer((req, res) => {
+  // Optional: handle HTTP requests here or just send 404
+  res.writeHead(404);
+  res.end();
+});
+
+const wss = new WebSocketServer({ server });
 
 wss.on("connection", (socket: WebSocket) => {
   console.log("Client connected");
@@ -23,14 +29,12 @@ wss.on("connection", (socket: WebSocket) => {
     try {
       const parsed = JSON.parse(data.toString());
 
-      // Handle join
       if (parsed.type === "join") {
         const { roomId, name } = parsed.payload;
         allSockets.push({ socket, room: roomId, name });
         console.log(`User ${name} joined room ${roomId}`);
       }
 
-      // Handle chat
       if (parsed.type === "chat") {
         const sender = allSockets.find((u) => u.socket === socket);
         if (!sender) return;
@@ -42,7 +46,6 @@ wss.on("connection", (socket: WebSocket) => {
           name: sender.name,
         });
 
-        // Send to everyone else in the same room
         allSockets
           .filter((u) => u.room === sender.room && u.socket !== socket)
           .forEach((u) => u.socket.send(outgoing));
@@ -61,4 +64,6 @@ wss.on("connection", (socket: WebSocket) => {
   });
 });
 
-console.log(` WebSocket server is running at ws://localhost:${PORT}`);
+server.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
+});
