@@ -15,7 +15,6 @@ interface User {
 let allSockets: User[] = [];
 
 const server = http.createServer((req, res) => {
-  // Optional: handle HTTP requests here or just send 404
   res.writeHead(404);
   res.end();
 });
