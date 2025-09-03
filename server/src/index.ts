@@ -26,10 +26,14 @@ wss.on("connection", (socket: WebSocket) => {
 
   socket.on("message", (data: RawData) => {
     try {
-      const parsed = JSON.parse(data.toString());
-      console.log("Raw message received:", parsed);
 
-      // Handle join event
+      const str = data.toString("utf8");
+      console.log("Raw message as string:", str);
+
+      const parsed = JSON.parse(str);
+      console.log("Parsed message:", parsed);
+
+
       if (parsed.type === "join") {
         const { roomId, name } = parsed.payload;
         console.log("Join event received:", parsed.payload);
@@ -38,13 +42,12 @@ wss.on("connection", (socket: WebSocket) => {
         console.log(`User ${name} joined room ${roomId}`);
       }
 
-      // Handle chat event
       if (parsed.type === "chat") {
         console.log("Chat event received:", parsed.payload);
 
         const sender = allSockets.find((u) => u.socket === socket);
         if (!sender) {
-          console.log("Sender not found in allSockets");
+          console.log("Sender not found in allSockets, ignoring chat");
           return;
         }
 
@@ -64,7 +67,7 @@ wss.on("connection", (socket: WebSocket) => {
           .forEach((u) => u.socket.send(outgoing));
       }
     } catch (err) {
-      console.error("Invalid message format:", data.toString());
+      console.error("Invalid message format, error:", err);
     }
   });
 
