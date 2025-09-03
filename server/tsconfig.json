@@ -8,10 +8,10 @@
     "strict": true,
     "skipLibCheck": true,
     "outDir": "dist",
+    "rootDir": "src",
     "types": ["node"],
     "typeRoots": ["./node_modules/@types"]
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist"]
 }
-// This file is used to configure the TypeScript compiler options for the server-side code.
