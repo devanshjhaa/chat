@@ -25,6 +25,17 @@ Chat-App/
 
 └─ README.md
 
+
+---
+
+## ⚙️ Setup
+
+### 1) Clone the repository
+``bash
+git clone https://github.com/devanshjhaa/chat.git
+cd chat
+
+
 Install Dependencies:
 # Frontend
 cd client
