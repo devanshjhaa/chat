@@ -63,7 +63,10 @@ Lightweight and responsive UI
 
 Deployed on Vercel (frontend) and Render (backend)
 
-📸 Screenshots
-Login
+## 📸 Screenshots
 
-Chat Room
+### Login  
+![Login](./screenshots/Login.png)
+
+### Chat Room  
+![Chat Room](./screenshots/ChatRoom.png)
